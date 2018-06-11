@@ -1,17 +1,25 @@
 #!/bin/bash
+echo "Porządek lokalny"
 sudo apt update -y && sudo apt upgrade -y
-sudo apt install -y htop net-tools openssh-server sshfs proftpd espeak geany git python python-pip python-smbus python3-dev python3-venv python3-pip python3-smbus apache2 php mysql-server mysql-common mysql-client phpmyadmin mplayer
 sudo apt autoclean -y
 sudo apt autoremove -y
 sudo apt dist-upgrade -y
+echo "Instalowanie potrzebnego oprogramowania"
+sudo apt install -y htop net-tools openssh-server sshfs proftpd espeak geany git python python-pip python-smbus python3-dev python3-venv python3-pip python3-smbus apache2 php mysql-server mysql-common mysql-client phpmyadmin mplayer
+echo "Restart apache2 mysql"
 sudo service apache2 restart
 sudo service mysql restart
+echo "Instalowanie wirtualnego środowiska Pythona"
 sudo pip3 install virtualenv
 virtualenv /home/$USER/pythonenv
+echo "Instalowanie pakietów Pythona"
 pip install requests
+echo "Instalowanie mps-youtube"
 pip3 install mps-youtube youtube-dl
 git clone https://github.com/mps-youtube/mps-youtube
 sudo cp mps-youtube/mpsyt	/usr/bin
+rm -R -f mps-youtube
+echo "Instalowanie programów pomocniczych DomoBota"
 sudo cp bin/gad				/usr/bin
 sudo cp bin/ziz				/usr/bin
 sudo cp bin/gpio/dht11		/usr/bin
@@ -20,5 +28,6 @@ sudo cp bin/pogoda			/usr/bin
 sudo cp bin/gpio/domofon	/usr/bin
 sudo cp bin/domobot			/usr/bin
 sudo cp bin/autogit			/usr/bin
+echo "Instalowanie DoboBot GUI"
 sudo cp -r www/* /var/www/html/domobot/		#musi być ta gwiazdka, bo inaczej kopiuje do www
 
