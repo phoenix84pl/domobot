@@ -1,3 +1,1 @@
-# domobot
-# domobot
-# domobot
+Kiedyś to będzie aplikacja do zarządzania inteligentnymi domami
