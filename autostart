@@ -11,6 +11,7 @@ virtualenv /home/$USER/pythonenv
 pip install requests
 pip3 install mps-youtube youtube-dl
 git clone https://github.com/mps-youtube/mps-youtube
+sudo cp mps-youtube/mpsyt	/usr/bin
 sudo cp bin/gad				/usr/bin
 sudo cp bin/ziz				/usr/bin
 sudo cp bin/gpio/dht11		/usr/bin
