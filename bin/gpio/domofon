@@ -1,0 +1,19 @@
+#!/usr/bin/python
+
+pin=7	#numer pinu sterowania przekaznika
+otwarcie=5	#czas otwarcia zamka
+
+import time
+import RPi.GPIO as GPIO
+import subprocess
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(pin, GPIO.OUT)
+GPIO.output(pin, 0)
+for i in range(otwarcie):
+	sek=otwarcie-i
+	subprocess.call(["lcd", "", "Domofon otwarty:   "+str(sek)])
+	time.sleep(1)
+subprocess.call(["lcd"])
+GPIO.cleanup()
