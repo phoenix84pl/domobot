@@ -1,7 +1,7 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-#sciezka
-#/home/phoenix/pythonenv/lib/python3.6/site-packages/google/assistant/library/__main__.py
+#Dodane ID, Dodane printowanie na zdarzeniach, dodany import sys, dodany exit na errorze
 
 # Copyright (C) 2017 Google Inc.
 #
@@ -21,6 +21,7 @@
 from __future__ import print_function
 
 import argparse
+import sys
 import json
 import os.path
 import pathlib2 as pathlib
@@ -58,15 +59,21 @@ def process_event(event):
     """
     if event.type == EventType.ON_CONVERSATION_TURN_STARTED:
         print()
+        print('Słucham Cię Panie') 
+        print()
 
     print(event)
 
     if (event.type == EventType.ON_CONVERSATION_TURN_FINISHED and
             event.args and not event.args['with_follow_on_turn']):
         print()
+        print('Rozkaz wykonany gnido') 
+        print()
     if event.type == EventType.ON_DEVICE_ACTION:
         for command, params in event.actions:
+            print('Czy znowu się coś spierdzieliło?') 
             print('Do command', command, 'with params', str(params))
+            sys.exit()
 
 
 def main():
@@ -102,8 +109,9 @@ def main():
         credentials = google.oauth2.credentials.Credentials(token=None,
                                                             **json.load(f))
 
-    device_model_id = "DomoBot"
-    last_device_id = "DomoBot"
+    device_model_id = "M4800"
+    last_device_id = "M4800"
+
     try:
         with open(args.device_config) as f:
             device_config = json.load(f)
@@ -129,6 +137,7 @@ def main():
         print('device_model_id:', device_model_id)
         print('device_id:', device_id + '\n')
 
+
         # Re-register if "device_id" is different from the last "device_id":
         if should_register or (device_id != last_device_id):
             if args.project_id:
@@ -143,6 +152,9 @@ def main():
                     }, f)
             else:
                 print(WARNING_NOT_REGISTERED)
+
+        print('Chyba mnie ktoś obudził')
+        print()
 
         for event in events:
             process_event(event)
