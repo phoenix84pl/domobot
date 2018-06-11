@@ -3,7 +3,7 @@
 if ! ps -ef | grep [g]oogle-assistant > /dev/null
 then
 	espeak -vpl "Asystent Google Start" &
-	google-assistant >/dev/null
+	google-assistant >/dev/null &
 else
 	echo "Asystent Google już działa"
 fi
