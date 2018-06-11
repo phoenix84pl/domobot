@@ -15,4 +15,5 @@ sudo cp bin/gpio/lcd		/usr/bin
 sudo cp bin/pogoda		/usr/bin
 sudo cp bin/gpio/domofon	/usr/bin
 sudo cp bin/domobot		/usr/bin
+sudo cp -r www/* /var/www/html/domobot/		#musi być ta gwiazdka, bo inaczej kopiuje do www
 
