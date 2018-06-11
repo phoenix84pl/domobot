@@ -35,7 +35,7 @@ echo "→ Instalowanie pakietów Pythona"
 echo ""
 pip install requests
 echo ""
-echo "→ Instalowanie mps-youtube"
+echo "→ Instalowanie najnowszej wersji mps-youtube"
 echo ""
 pip3 install mps-youtube youtube-dl
 git clone https://github.com/mps-youtube/mps-youtube
@@ -55,7 +55,7 @@ sudo cp bin/autogit			/usr/bin
 echo ""
 echo "→Instalowanie DomoBot GUI"
 echo ""
-sudo cp -r www/* /var/www/html/domobot/		#musi być ta gwiazdka, bo inaczej kopiuje do www
+sudo cp -Rp www/* /var/www/html/domobot/		#musi być ta gwiazdka, bo inaczej kopiuje do www, Rp żeby prawa zostały normalne, a nie root
 sudo echo "<?php" | sudo tee /var/www/html/domobot/config/db.php
 sudo echo "define('DB_CMS_HOST', 'localhost');" | sudo tee -a /var/www/html/domobot/config/db.php
 sudo echo "define('DB_CMS_BAZA', 'domobot');" | sudo tee -a /var/www/html/domobot/config/db.php
