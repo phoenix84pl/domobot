@@ -5,6 +5,9 @@ Na razie działa:
 2. Integracja z IFTTT
 2. Sterowanie oświetleniem
 3. Odpalanie muzyki z YT
-4. Gadanie komputera
-5. Otwieranie domofonu maliną
-6. Dawanie komunikatów na wyświetlacz LCD w malinie
+4. Zatrzymywanie muzyki z YT
+5. Zmiana głośności
+6. <strong>Gadanie komputera</strong>
+7. Otwieranie domofonu maliną
+8. Dawanie komunikatów na wyświetlacz LCD w malinie
+
