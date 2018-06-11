@@ -4,7 +4,8 @@ sudo apt install htop net-tools openssh-server proftpd espeak geany git python3-
 sudo apt autoclean
 sudo apt autoremove
 sudo apt dist-upgrade
-sudo service apache restart
+sudo service apache2 restart
 sudo service mysql restart
 pip3 install --user mps-youtube youtube-dl
-
+sudo cp bin/gad /usr/bin
+sudo cp bin/ziz /usr/bin
