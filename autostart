@@ -6,6 +6,8 @@ sudo apt autoremove
 sudo apt dist-upgrade
 sudo service apache2 restart
 sudo service mysql restart
+sudo pip3 install virtualenv
+virtualenv /home/$USER/pythonenv
 pip install requests
 pip3 install --user mps-youtube youtube-dl
 sudo cp bin/gad			/usr/bin
