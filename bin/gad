@@ -3,7 +3,7 @@
 if ! ps -ef | grep [g]oogle-assistant > /dev/null
 then
 	espeak -vpl "Asystent Google Start" &
-	google-assistant >>/var/www/html/domobot/log/gad.log 2>>/var/www/html/domobot/log/gad.error.log &
+	google-assistant
 else
 	echo "Asystent Google już działa"
 fi
