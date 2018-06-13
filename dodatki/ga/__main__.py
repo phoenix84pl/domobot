@@ -59,21 +59,31 @@ def process_event(event):
     """
     if event.type == EventType.ON_CONVERSATION_TURN_STARTED:
         print()
-        print('Słucham Cię Panie') 
+        print('Słucham Cię Panie')
         print()
 
     print(event)
 
+    print()
+    print('Jaki typ zdarzenia?')
+    print(event.type)
+    print()
+
     if (event.type == EventType.ON_CONVERSATION_TURN_FINISHED and
             event.args and not event.args['with_follow_on_turn']):
         print()
-        print('Rozkaz wykonany gnido') 
+        print('Rozkaz wykonany gnido')
         print()
     if event.type == EventType.ON_DEVICE_ACTION:
         for command, params in event.actions:
-            print('Czy znowu się coś spierdzieliło?') 
+            print('Czy to jest jakieś zdarzenie urządzenia?')
             print('Do command', command, 'with params', str(params))
-            sys.exit()
+
+    if event.type == EventType.ON_ASSISTANT_ERROR:
+        print()
+        print('Jakiś error. Fatal nie fatal, zabić czeba :)')
+        print()
+        sys.exit()
 
 
 def main():

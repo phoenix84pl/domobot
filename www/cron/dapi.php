@@ -46,6 +46,28 @@ function rozkazWykonaj($id, $o_db)
 				break;
 			}
 
+			case 'suspend':
+			{
+				$parametry=json_decode($rozkaz['parametry']);
+
+					//musi być na prawach root
+				$polecenie="pm-suspend";
+				echo exec($polecenie);
+
+				break;
+			}
+
+			case 'suspend':
+			{
+				$parametry=json_decode($rozkaz['parametry']);
+
+//				var_dump($parametry);
+				$polecenie="pm-suspend";
+				echo exec($polecenie);
+
+				break;
+			}
+
 			case 'espeak':
 			{
 				$parametry=json_decode($rozkaz['parametry']);
