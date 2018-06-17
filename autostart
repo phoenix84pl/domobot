@@ -1,0 +1,76 @@
+#!/bin/bash
+echo ""
+echo "→ Porządek lokalny"
+echo ""
+sudo apt update -y && sudo apt upgrade -y
+sudo apt autoclean -y
+sudo apt autoremove -y
+sudo apt dist-upgrade -y
+echo ""
+echo "→ Instalowanie potrzebnego oprogramowania. Na wszystkie pytania odpowiadasz WCISKANIEM ENTER"
+echo ""
+sudo apt install -y htop pm-utils net-tools curl openssh-server sshfs proftpd pwgen git python python-pip python-smbus python3-dev python3-venv python3-pip python3-smbus apache2 php mysql-server mysql-common mysql-client phpmyadmin mplayer espeak geany
+sudo apt install -y filezilla
+echo ""
+echo "→ Restart apache2 mysql, żeby zapamiętały zmiany."
+echo ""
+sudo service apache2 restart
+sudo service mysql restart
+echo ""
+echo "→ Instalowanie Bazy Danych DomoBota"
+echo "Zmieni się hasło do bazy na losowe ze względów bezpieczeństwa."
+echo ""
+HASLO="$(pwgen 12 1)"
+sudo mysql -u root -e "CREATE DATABASE IF NOT EXISTS domobot;"
+sudo mysql -u root -e "DROP USER IF EXISTS 'domobot'@'localhost'"
+sudo mysql -u root -e "CREATE USER 'domobot'@'localhost' IDENTIFIED BY '$HASLO';"
+sudo mysql -u root -e "GRANT ALL PRIVILEGES ON domobot.* TO 'domobot'@'localhost';"
+sudo mysql -u root -e "FLUSH PRIVILEGES;"
+echo ""
+echo "→ Instalowanie wirtualnego środowiska Pythona"
+echo ""
+sudo pip3 install virtualenv
+virtualenv /home/$USER/pythonenv
+echo ""
+echo "→ Instalowanie pakietów Pythona"
+echo ""
+pip install requests
+echo ""
+echo "→ Instalowanie najnowszej wersji mps-youtube"
+echo ""
+pip3 install mps-youtube youtube-dl
+git clone https://github.com/mps-youtube/mps-youtube
+sudo cp mps-youtube/mpsyt	/usr/bin
+rm -R -f mps-youtube
+echo ""
+echo "→ Instalowanie programów pomocniczych DomoBota"
+echo ""
+sudo cp bin/gad				/usr/bin
+sudo cp bin/ziz				/usr/bin
+sudo cp bin/gpio/dht11		/usr/bin
+sudo cp bin/gpio/lcd		/usr/bin
+sudo cp bin/pogoda			/usr/bin
+sudo cp bin/gpio/domofon	/usr/bin
+sudo cp bin/domobot			/usr/bin
+sudo cp bin/autogit			/usr/bin
+echo ""
+echo "→Instalowanie DomoBot GUI"
+echo ""
+sudo cp -Rp www/* /var/www/html/domobot/		#musi być ta gwiazdka, bo inaczej kopiuje do www, Rp żeby prawa zostały normalne, a nie root
+sudo echo "<?php" | sudo tee /var/www/html/domobot/config/db.php
+sudo echo "define('DB_CMS_HOST', 'localhost');" | sudo tee -a /var/www/html/domobot/config/db.php
+sudo echo "define('DB_CMS_BAZA', 'domobot');" | sudo tee -a /var/www/html/domobot/config/db.php
+sudo echo "define('DB_CMS_LOGIN', 'domobot');" | sudo tee -a /var/www/html/domobot/config/db.php
+sudo echo "define('DB_CMS_HASLO', '$HASLO');" | sudo tee -a /var/www/html/domobot/config/db.php
+sudo echo "?>" | sudo tee -a /var/www/html/domobot/config/db.php
+echo ""
+echo "→ Jeśli to pierwsza instalacja lub robisz kompletny reinstall, to musisz skonfigurować dostęp do API. Dane dostaniesz od twórcy Domobot API."
+echo "Wpisz:"
+echo "./configureDAPI - jeśli chcesz skonfigurować API"
+echo "./configureDB - jeśli chcesz ręcznie edytować dane do bazy danych"
+echo "./configure - jeśli chcesz skonfigurować oba"
+echo ""
+echo "Nie zapomnij dodać DomoBota do crona, aby sam startował."
+echo "Aby to zrobić wykorzystaj komendę: crontab -e i wklej tam poniższą linię"
+echo "* * * * * /bin/bash /var/www/html/domobot/cron/domobot.cron"
+echo "Więcej info o działaniu cron znajdziej w google"

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if ! ps -ef | grep [g]oogle-assistant > /dev/null
+then
+	espeak -vpl "Asystent Google Start" &
+	google-assistant
+else
+	echo "Asystent Google już działa"
+fi
