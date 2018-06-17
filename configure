@@ -1,0 +1,5 @@
+#!/bin/bash
+echo "Nastąpi konfiguracja aplikacji DomoBot."
+./configureDAPI
+./configureDB
+

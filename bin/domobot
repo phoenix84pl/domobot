@@ -1,0 +1,38 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+import subprocess
+
+if len(sys.argv)>1:
+	subprocess.call(["lcd", "", "DomoBot pracuje"])
+
+		#obsluga komend
+	if sys.argv[1]=='domofon':
+		print "domofon"
+		subprocess.call(["domofon"])
+	elif sys.argv[1]=='ciemnosc':
+		import requests	#tu bo dlugo trwa
+		print "BedroomLightOff"
+		requests.get('https://maker.ifttt.com/trigger/BedroomLightOff/with/key/oPX6h4szSNQtXM72svWg63UiGgSt0mqYkocRgXdQaqK')
+		print "LivingRoomLightOff"
+		requests.get('https://maker.ifttt.com/trigger/LivingRoomLightOff/with/key/oPX6h4szSNQtXM72svWg63UiGgSt0mqYkocRgXdQaqK')
+		print "KitchenLightOff"
+		requests.get('https://maker.ifttt.com/trigger/KitchenLightOff/with/key/oPX6h4szSNQtXM72svWg63UiGgSt0mqYkocRgXdQaqK')
+	elif sys.argv[1]=='nikt':
+		import requests
+		print "BedroomLightOff"
+		requests.get('https://maker.ifttt.com/trigger/BedroomLightOff/with/key/oPX6h4szSNQtXM72svWg63UiGgSt0mqYkocRgXdQaqK')
+		print "LivingRoomLightOff"
+		requests.get('https://maker.ifttt.com/trigger/LivingRoomLightOff/with/key/oPX6h4szSNQtXM72svWg63UiGgSt0mqYkocRgXdQaqK')
+		print "KitchenLightOff"
+		requests.get('https://maker.ifttt.com/trigger/KitchenLightOff/with/key/oPX6h4szSNQtXM72svWg63UiGgSt0mqYkocRgXdQaqK')
+		print "BedroomSpeakersOff"
+		requests.get('https://maker.ifttt.com/trigger/BedroomSpeakersOff/with/key/oPX6h4szSNQtXM72svWg63UiGgSt0mqYkocRgXdQaqK')
+
+	subprocess.call(["lcd", "       DomoBot", "", sys.argv[1]])
+else:
+	print "Opcje:"
+	print "\tdomofon\t\tOtwiera drzwi od domofonu"
+	print "\tciemnosc\tGasi wszystkie światła"
+	print "\tnikt\t\tGasi wszystkie światła i wyłącza zbędne urządzenia"
