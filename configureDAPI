@@ -1,9 +1,0 @@
-#!/bin/bash
-echo "Nazwa DAPI (Nazwa tego urządzenia w DomoBot API)?"
-read APINAME
-echo "Hasło DAPI?"
-read APISECRET
-sudo echo "<?php" | sudo tee /var/www/html/domobot/config/domobot.php
-sudo echo "define('DB_NAME', '$APINAME');" | sudo tee -a /var/www/html/domobot/config/domobot.php
-sudo echo "define('DB_SECRET', '$APISECRET');" | sudo tee -a /var/www/html/domobot/config/domobot.php
-sudo echo "?>" | sudo tee -a /var/www/html/domobot/config/domobot.php

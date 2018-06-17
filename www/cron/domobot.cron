@@ -1,3 +1,0 @@
-#!/bin/bash
-gad &
-php /var/www/html/domobot/cron/dapi.php &
