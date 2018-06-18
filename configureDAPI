@@ -7,18 +7,19 @@ read APISECRET
 PHP=/var/www/html/domobot/config/dapi.php
 PYTHON=/usr/share/domobot/dapi.py
 
+echo $(whoami)
 echo ""
 echo "W formacie PHP: $PHP"
 echo ""
-sudo echo "<?php" | sudo tee $PHP
-sudo echo "define('DB_NAME', '$APINAME');" | sudo tee -a $PHP
-sudo echo "define('DB_SECRET', '$APISECRET');" | sudo tee -a $PHP
-sudo echo "?>" | sudo tee -a $PHP
+echo "<?php" | tee $PHP
+echo "define('DB_NAME', '$APINAME');" | tee -a $PHP
+echo "define('DB_SECRET', '$APISECRET');" | tee -a $PHP
+echo "?>" | tee -a $PHP
 
 echo ""
 echo "W formacie Python: $PYTHON"
 echo ""
-sudo echo "dapi=dict(" | sudo tee $PYTHON
-sudo echo "    name='$APINAME'," | sudo tee -a $PYTHON
-sudo echo "    secret='$APISECRET'," | sudo tee -a $PYTHON
-sudo echo ")" | sudo tee -a $PYTHON
+echo "dapi=dict(" | sudo tee $PYTHON
+echo "    name='$APINAME'," | sudo tee -a $PYTHON
+echo "    secret='$APISECRET'," | sudo tee -a $PYTHON
+echo ")" | sudo tee -a $PYTHON
