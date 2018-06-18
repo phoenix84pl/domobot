@@ -204,13 +204,14 @@ GPIO.cleanup()
 # read data using pin 14
 instance = DHT11(pin=25)
 
-#probujemy, az do skutku
+#probujemy max 10 razy
 attempt=0
 
 result = instance.read()
-while not result.is_valid():
-	result = instance.read()
+while ((not result.is_valid()) and (attempt<100)):
+	result=instance.read()
 	attempt=attempt+1;
+	if attempt==10: sys.exit()
 
 if len(sys.argv)>1:
     if sys.argv[1]=='t':
