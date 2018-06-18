@@ -18,7 +18,7 @@ sudo service apache2 restart
 sudo service mysql restart
 echo ""
 echo "→ Instalowanie Bazy Danych DomoBota"
-echo "Zmieni się hasło do bazy na losowe ze względów bezpieczeństwa."
+echo "Zmieni się hasło do bazy na losowe ze względów bezpieczeństwa. Zobaczysz je pod koniec instalacji, pamiętaj że jako użytkownik DomoBota nie jest Ci do niczego potrzebne."
 echo ""
 HASLO="$(pwgen 12 1)"
 sudo mysql -u root -e "CREATE DATABASE IF NOT EXISTS domobot;"

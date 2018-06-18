@@ -12,6 +12,7 @@ echo ""
 echo "W formacie PHP: $PHP"
 echo ""
 echo "<?php" | tee $PHP
+echo "define('DB_URL', 'https://domobot.monettosa.nstrefa.pl/api/');" | tee -a $PHP
 echo "define('DB_NAME', '$APINAME');" | tee -a $PHP
 echo "define('DB_SECRET', '$APISECRET');" | tee -a $PHP
 echo "?>" | tee -a $PHP
@@ -20,6 +21,7 @@ echo ""
 echo "W formacie Python: $PYTHON"
 echo ""
 echo "dapi=dict(" | sudo tee $PYTHON
+echo "    url='https://domobot.monettosa.nstrefa.pl/api/'," | sudo tee -a $PYTHON
 echo "    name='$APINAME'," | sudo tee -a $PYTHON
 echo "    secret='$APISECRET'," | sudo tee -a $PYTHON
 echo ")" | sudo tee -a $PYTHON
