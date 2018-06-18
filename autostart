@@ -54,6 +54,10 @@ sudo cp bin/gpio/domofon	/usr/bin
 sudo cp bin/domobot			/usr/bin
 sudo cp bin/autogit			/usr/bin
 echo ""
+echo "→Instalowanie DomoBot Config"
+echo ""
+sudo mkdir /usr/share/domobot
+echo ""
 echo "→Instalowanie DomoBot GUI"
 echo ""
 sudo cp -Rp www/* /var/www/html/domobot/		#musi być ta gwiazdka, bo inaczej kopiuje do www, Rp żeby prawa zostały normalne, a nie root
