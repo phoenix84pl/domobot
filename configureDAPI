@@ -3,7 +3,22 @@ echo "Nazwa DAPI (Nazwa tego urządzenia w DomoBot API)?"
 read APINAME
 echo "Hasło DAPI?"
 read APISECRET
-sudo echo "<?php" | sudo tee /var/www/html/domobot/config/domobot.php
-sudo echo "define('DB_NAME', '$APINAME');" | sudo tee -a /var/www/html/domobot/config/domobot.php
-sudo echo "define('DB_SECRET', '$APISECRET');" | sudo tee -a /var/www/html/domobot/config/domobot.php
-sudo echo "?>" | sudo tee -a /var/www/html/domobot/config/domobot.php
+
+PHP=/var/www/html/domobot/config/dapi.php
+PYTHON=/usr/share/domobot/dapi.py
+
+echo ""
+echo "W formacie PHP: $PHP"
+echo ""
+sudo echo "<?php" | sudo tee $PHP
+sudo echo "define('DB_NAME', '$APINAME');" | sudo tee -a $PHP
+sudo echo "define('DB_SECRET', '$APISECRET');" | sudo tee -a $PHP
+sudo echo "?>" | sudo tee -a $PHP
+
+echo ""
+echo "W formacie Python: $PYTHON"
+echo ""
+sudo echo "dapi=dict(" | sudo tee $PYTHON
+sudo echo "    name='$APINAME'," | sudo tee -a $PYTHON
+sudo echo "    secret='$APISECRET'," | sudo tee -a $PYTHON
+sudo echo ")" | sudo tee -a $PYTHON

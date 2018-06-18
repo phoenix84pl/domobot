@@ -4,7 +4,7 @@
 $czas=time();
 
 require_once(__DIR__.'/../lib/root/precms.php');
-require_once(__DIR__.'/../config/domobot.php');
+require_once(__DIR__.'/../config/dapi.php');
 cms_require_modul('db');
 cms_require_modul('curl');
 
