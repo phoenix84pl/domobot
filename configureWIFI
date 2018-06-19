@@ -4,6 +4,11 @@ read SSID
 echo "Hasło WiFi?"
 read PASS
 
+if uname | grep -q W64; then
+    echo found
+else
+    echo not found
+fi
 PHP=/var/www/html/domobot/config/wifi.php
 PYTHON=/usr/share/domobot/wifi.py
 C=/usr/share/domobot/wifi.h
