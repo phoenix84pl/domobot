@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 import subprocess
+#na czas oczekiwania na wyniki
+proces=subprocess.call(["lcd", "", "  Zbieranie danych", "   Prosze czekac"])
 
 import re
 import json
@@ -23,17 +25,19 @@ czas=datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S')
 #dht11=json.loads(wynik[0].replace("'", "\""))
 
 #DomoBot
+t='??'
+h='??'
+
 if len(sys.argv)>1:
 	dom=requests.get(config.dapi['url']+'?name='+config.dapi['name']+'&secret='+config.dapi['secret']+'&action=reportGet&device='+sys.argv[1]+'&type=T&limit=1')
 	dom=dom.json()
-	t=dom['data'][0]['param']
+	try: t=dom['data'][0]['param']
+	except: print ("Nie udało się pobrać Temperatury. Zapewne błędne dane do DAPI.")
 	dom=requests.get(config.dapi['url']+'?name='+config.dapi['name']+'&secret='+config.dapi['secret']+'&action=reportGet&device='+sys.argv[1]+'&type=H&limit=1')
 	dom=dom.json()
-	h=dom['data'][0]['param']
-else:
-	print ("Podaj nazwę urządzenia jako parametr, by uzyskać go w wyniku.")
-	t='??'
-	h='??'
+	try: h=dom['data'][0]['param']
+	except: print ("Nie udało się pobrać Wilgotności. Zapewne błędne dane do DAPI.")
+else: print ("Podaj nazwę urządzenia jako parametr, by uzyskać go w wyniku.")
 
 #KN
 kn=requests.get('http://api.openweathermap.org/data/2.5/weather?id=7532585&lang=pl&appid=4224c752cdb27c44c8b1968424c3b346')
