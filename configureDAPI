@@ -29,7 +29,7 @@ echo ""
 echo "W formacie PHP: $PHP"
 echo ""
 echo "<?php" | tee $PHP
-echo "define('DAPI_URL', 'https://domobot.monettosa.nstrefa.pl/api/');" | tee -a $PHP
+echo "define('DAPI_URL', 'http://domobot.monettosa.nstrefa.pl/api/');" | tee -a $PHP
 echo "define('DAPI_NAME', '$APINAME');" | tee -a $PHP
 echo "define('DAPI_SECRET', '$APISECRET');" | tee -a $PHP
 echo "?>" | tee -a $PHP
@@ -38,7 +38,7 @@ echo ""
 echo "W formacie Python: $PYTHON"
 echo ""
 echo "dapi=dict(" | $SUDO tee $PYTHON
-echo "    url='https://domobot.monettosa.nstrefa.pl/api/'," | $SUDO tee -a $PYTHON
+echo "    url='http://domobot.monettosa.nstrefa.pl/api/'," | $SUDO tee -a $PYTHON
 echo "    name='$APINAME'," | $SUDO tee -a $PYTHON
 echo "    secret='$APISECRET'," | $SUDO tee -a $PYTHON
 echo ")" | $SUDO tee -a $PYTHON
@@ -46,6 +46,6 @@ echo ")" | $SUDO tee -a $PYTHON
 echo ""
 echo "W formacie C: $C"
 echo ""
-echo "String DAPI_URL=\"https://domobot.monettosa.nstrefa.pl/api/\";" | $SUDO tee $C
+echo "String DAPI_URL=\"http://domobot.monettosa.nstrefa.pl/api/\";" | $SUDO tee $C
 echo "String DAPI_NAME=\"$APINAME\";" | $SUDO tee -a $C
 echo "String DAPI_SECRET=\"$APISECRET\";" | $SUDO tee -a $C
