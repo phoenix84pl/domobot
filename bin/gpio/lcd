@@ -1,7 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-
 # Driver library for LCD display. Provided by Ryanteck LTD.
 # The procedures below can all be called in your own code!
 # You can just stick to the print string one though ;-)
@@ -17,8 +16,6 @@ from time import *
 import sys
 import smbus
 import datetime
-import os
-import stat
 
 #Zarzadzanie I2C
 class i2c_device:
@@ -164,19 +161,20 @@ class lcd:
         self.lcd_write(LCD_RETURNHOME)
 
 #WLASCIWY PROGRAM
-lcd=True
+
+czylcd=True
 
 try: lcd=lcd()
 except:
     #Nie ma LCD
-    lcd=False
+    czylcd=False
     print ("Nie ma i2c. Wynik zostanie wyświetlony na ekranie.")
     print ""
 
 ekran=-1
 for wartosc in sys.argv:
     if ekran>=0:
-        if lcd: lcd.lcd_display_string(wartosc, ekran)
+        if czylcd: lcd.lcd_display_string(wartosc, ekran)
         else: print(wartosc)
     ekran=ekran+1
 
