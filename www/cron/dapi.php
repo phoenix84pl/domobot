@@ -128,7 +128,7 @@ while(time()-$czas<59)
 
 
 	$o_curl=new curl();
-	$link=DB_URL."?name=".DB_NAME."&secret=".DB_SECRET."&action=get&last={$last}&limit=1";
+	$link=DB_URL."?name=".DB_NAME."&secret=".DB_SECRET."&action=requestGet&last={$last}&limit=1";
 	$www=$o_curl->wykonaj($link);
 	$wynik=(array) json_decode($www);
 
@@ -184,7 +184,7 @@ while(time()-$czas<59)
 			{
 				//wysyla request aktualizacji statusu na bramie
 				$o_curl=new curl();
-				$link=DB_URL."?name=".DB_NAME."&secret=".DB_SECRET."&action=statusUpdate&id={$wartosc->id}&status=2";
+				$link=DB_URL."?name=".DB_NAME."&secret=".DB_SECRET."&action=requestStatusUpdate&id={$wartosc->id}&status=2";
 				$www=$o_curl->wykonaj($link);
 				$www=(array) json_decode($www);
 

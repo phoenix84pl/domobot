@@ -1,21 +1,39 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 
 import subprocess
-proces=subprocess.call(["lcd", "", "Zbieranie danych...", "   Prosze czekac"])
 
 import re
 import json
 import datetime
 import requests
+import sys
+sys.path.append('/usr/share/domobot')
+import dapi as config	#config dapi
+
+#print config.dapi
 
 czas=datetime.datetime.now().strftime('%Y-%m-%d  %H:%M:%S')
 
 #dht11
-proces=subprocess.Popen(["dht11"], stdout=subprocess.PIPE)
-(wynik, error)=proces.communicate()
-exit_code=proces.wait()
-wynik=wynik.splitlines()
-dht11=json.loads(wynik[0].replace("'", "\""))
+#proces=subprocess.Popen(["dht11"], stdout=subprocess.PIPE)
+#(wynik, error)=proces.communicate()
+#exit_code=proces.wait()
+#wynik=wynik.splitlines()
+#dht11=json.loads(wynik[0].replace("'", "\""))
+
+#DomoBot
+if len(sys.argv)>1:
+	dom=requests.get(config.dapi['url']+'?name='+config.dapi['name']+'&secret='+config.dapi['secret']+'&action=reportGet&device='+sys.argv[1]+'&type=T&limit=1')
+	dom=dom.json()
+	t=dom['data'][0]['param']
+	dom=requests.get(config.dapi['url']+'?name='+config.dapi['name']+'&secret='+config.dapi['secret']+'&action=reportGet&device='+sys.argv[1]+'&type=H&limit=1')
+	dom=dom.json()
+	h=dom['data'][0]['param']
+else:
+	print ("Podaj nazwę urządzenia jako parametr, by uzyskać go w wyniku.")
+	t='??'
+	h='??'
 
 #KN
 kn=requests.get('http://api.openweathermap.org/data/2.5/weather?id=7532585&lang=pl&appid=4224c752cdb27c44c8b1968424c3b346')
@@ -29,12 +47,12 @@ pogoda=regex.sub('?', pogoda)
 
 lcd={}
 lcd[0]=czas
-lcd[1]="Dom:         "+str(dht11['temperature'])+"C "+str(dht11['humidity'])+"%"
+lcd[1]="Dom:         "+str(t)+"C "+str(h)+"%"
 lcd[2]="Nowy Sacz:   "+str(int(kn['main']['temp']-273.15))+"C "+str(kn['main']['humidity'])+"%"
 lcd[3]=pogoda
 
 proces=subprocess.call(["lcd", lcd[0], lcd[1], lcd[2], lcd[3]])
-print lcd[0]
-print lcd[1]
-print lcd[2]
-print kn['weather'][0]['description'] #bez ograniczenia znakowego i unikodem
+#print lcd[0]
+#print lcd[1]
+#print lcd[2]
+#print kn['weather'][0]['description'] #bez ograniczenia znakowego i unikodem
