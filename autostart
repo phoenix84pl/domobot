@@ -1,4 +1,5 @@
 #!/bin/bash
+if [ $1 = "full" ]; then
 echo ""
 echo "→ Porządek lokalny"
 echo ""
@@ -42,6 +43,11 @@ pip3 install mps-youtube youtube-dl
 git clone https://github.com/mps-youtube/mps-youtube
 sudo cp mps-youtube/mpsyt	/usr/bin
 rm -R -f mps-youtube
+else
+echo ""
+echo "Uruchom z parametrem full, jeśli to pierwsza instalacja, dawno nie robiłeś full, coś nie działa lub wywala dziwne błędy. Full zaktualizuje Ci bardzo dużo dodatkowych programów przy okazji."
+echo ""
+fi
 echo ""
 echo "→ Instalowanie programów pomocniczych DomoBota"
 echo ""
