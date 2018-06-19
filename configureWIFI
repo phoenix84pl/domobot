@@ -1,0 +1,32 @@
+#!/bin/bash
+echo "Wifi SSID (nazwa Twojej domowej sieci WiFi)"
+read SSID
+echo "Hasło WiFi?"
+read PASS
+
+PHP=/var/www/html/domobot/config/wifi.php
+PYTHON=/usr/share/domobot/wifi.py
+C=/usr/share/domobot/wifi.h
+
+echo $(whoami)
+echo ""
+echo "W formacie PHP: $PHP"
+echo ""
+echo "<?php" | tee $PHP
+echo "define('WIFI_SSID', '$SSID');" | tee $PHP
+echo "define('WIFI_PASS', '$PASS');" | tee -a $PHP
+echo "?>" | tee -a $PHP
+
+echo ""
+echo "W formacie Python: $PYTHON"
+echo ""
+echo "wifi=dict(" | sudo tee $PYTHON
+echo "    ssid='$SSID'," | sudo tee -a $PYTHON
+echo "    pass='$PASS'," | sudo tee -a $PYTHON
+echo ")" | sudo tee -a $PYTHON
+
+echo ""
+echo "W formacie C: $C"
+echo ""
+echo "String WIFI_SSID=\"$SSID\";" | sudo tee $C
+echo "String WIFI_PASS=\"$PASS\";" | sudo tee -a $C

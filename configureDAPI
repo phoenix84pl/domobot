@@ -13,9 +13,9 @@ echo ""
 echo "W formacie PHP: $PHP"
 echo ""
 echo "<?php" | tee $PHP
-echo "define('DB_URL', 'https://domobot.monettosa.nstrefa.pl/api/');" | tee -a $PHP
-echo "define('DB_NAME', '$APINAME');" | tee -a $PHP
-echo "define('DB_SECRET', '$APISECRET');" | tee -a $PHP
+echo "define('DAPI_URL', 'https://domobot.monettosa.nstrefa.pl/api/');" | tee -a $PHP
+echo "define('DAPI_NAME', '$APINAME');" | tee -a $PHP
+echo "define('DAPI_SECRET', '$APISECRET');" | tee -a $PHP
 echo "?>" | tee -a $PHP
 
 echo ""
@@ -30,6 +30,6 @@ echo ")" | sudo tee -a $PYTHON
 echo ""
 echo "W formacie C: $C"
 echo ""
-echo "String DAPI_URL='https://domobot.monettosa.nstrefa.pl/api/';" | sudo tee $C
-echo "String DAPI_NAME='$APINAME';" | sudo tee -a $C
-echo "String DAPI_SECRET='$APISECRET';" | sudo tee -a $C
+echo "String DAPI_URL=\"https://domobot.monettosa.nstrefa.pl/api/\";" | sudo tee $C
+echo "String DAPI_NAME=\"$APINAME\";" | sudo tee -a $C
+echo "String DAPI_SECRET=\"$APISECRET\";" | sudo tee -a $C
