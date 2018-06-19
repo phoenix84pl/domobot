@@ -6,6 +6,7 @@ read APISECRET
 
 PHP=/var/www/html/domobot/config/dapi.php
 PYTHON=/usr/share/domobot/dapi.py
+C=/usr/share/domobot/dapi.h
 
 echo $(whoami)
 echo ""
@@ -25,3 +26,10 @@ echo "    url='https://domobot.monettosa.nstrefa.pl/api/'," | sudo tee -a $PYTHO
 echo "    name='$APINAME'," | sudo tee -a $PYTHON
 echo "    secret='$APISECRET'," | sudo tee -a $PYTHON
 echo ")" | sudo tee -a $PYTHON
+
+echo ""
+echo "W formacie C: $C"
+echo ""
+echo "String DAPI_URL='https://domobot.monettosa.nstrefa.pl/api/';" | sudo tee $C
+echo "String DAPI_NAME='$APINAME';" | sudo tee -a $C
+echo "String DAPI_SECRET='$APISECRET';" | sudo tee -a $C

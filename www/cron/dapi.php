@@ -126,6 +126,7 @@ while(time()-$czas<59)
 		$last=$o_db->komorka('wartosc', "WHERE `klucz`='last'", 'ustawienia');
 	}
 
+//	var_dump($o_db->sql, $o_db->error);
 
 	$o_curl=new curl();
 	$link=DB_URL."?name=".DB_NAME."&secret=".DB_SECRET."&action=requestGet&last={$last}&limit=1";
@@ -134,7 +135,8 @@ while(time()-$czas<59)
 
 //	var_dump($link);
 
-	if($wynik['success']===false) echo "Logowanie lipa\n";
+	if($wynik['authentication']===false) echo "Logowanie lipa\n";
+	elseif($wynik['success']===false) echo $wynik['info']."\n";
 	elseif(isset($wynik['data'])) foreach($wynik['data'] as $klucz=>$wartosc)
 	{
 		var_dump($wynik['data']);
