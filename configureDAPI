@@ -6,16 +6,23 @@ read APISECRET
 
 if uname | grep -q W64; then
 #win64
+
 	PHP=$null
 	PYTHON=$null
 	C="..\\..\\domobot\\dapi.h"
 	SUDO=""
+
+	$SUDO mkdir $HOME/Documents/domobot
+
 else
 #unix
+
 	PHP=/var/www/html/domobot/config/dapi.php
 	PYTHON=/usr/share/domobot/dapi.py
 	C=/usr/share/domobot/dapi.h
 	SUDO=sudo
+	$SUDO mkdir /usr/share/domobot
+
 fi
 
 echo ""

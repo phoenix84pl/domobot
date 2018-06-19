@@ -6,19 +6,27 @@ read PASS
 
 if uname | grep -q W64; then
 #win64
+
 	PHP=$null
 	PYTHON=$null
 	C="..\\..\\domobot\\wifi.h"
 	SUDO=""
+
+	$SUDO mkdir $HOME/Documents/domobot
+
 else
 #unix
+
 	PHP=/var/www/html/domobot/config/wifi.php
 	PYTHON=/usr/share/domobot/wifi.py
 	C=/usr/share/domobot/wifi.h
 	SUDO=sudo
+
+	$SUDO mkdir /usr/share/domobot
+
 fi
 
-echo $(whoami)
+
 echo ""
 echo "W formacie PHP: $PHP"
 echo ""
@@ -38,5 +46,5 @@ echo ")" | $SUDO tee -a $PYTHON
 echo ""
 echo "W formacie C: $C"
 echo ""
-echo "String WIFI_SSID=\"$SSID\";" | $SUDO tee $C
-echo "String WIFI_PASS=\"$PASS\";" | $SUDO tee -a $C
+echo "const char* WIFI_SSID=\"$SSID\";" | $SUDO tee $C
+echo "const char* WIFI_PASS=\"$PASS\";" | $SUDO tee -a $C
