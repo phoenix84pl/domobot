@@ -60,9 +60,11 @@ sudo cp bin/gpio/domofon	/usr/bin
 sudo cp bin/domobot			/usr/bin
 sudo cp bin/autogit			/usr/bin
 echo ""
-echo "→Umożliwienie korzystania z i2c w rPi przez wszystkich (programy i2c chodzą bez sudo). Komputery bez i2c mogą wywalić ERROR, olej go."
+echo "→Umożliwienie korzystania z GPIO i i2c w rPi przez wszystkich (programy GPIO/i2c chodzą bez sudo). Komputery bez i2c mogą wywalić ERROR, olej go."
 echo ""
 sudo chmod +rw /dev/i2c-1
+sudo chmod +rw /dev/mem
+sudo chmod +rw /dev/gpiomem
 echo ""
 echo "→Instalowanie DomoBot Config"
 echo ""
