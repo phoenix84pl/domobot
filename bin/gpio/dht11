@@ -197,8 +197,7 @@ class DHT11:
         return the_bytes[0] + the_bytes[1] + the_bytes[2] + the_bytes[3] & 255
 
 # initialize GPIO
-print "aaa"
-#GPIO.setwarnings(False)
+GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
 
 # read data using pin 25
@@ -226,6 +225,5 @@ if len(sys.argv)>1:
 else:
 	wynik={'time': int(time.time()), 'datetime': datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"), 'temperature': result.temperature, 'humidity': result.humidity, 'attempt': attempt}
 
-print "eee"
 print wynik
 GPIO.cleanup()
