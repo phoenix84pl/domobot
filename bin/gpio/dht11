@@ -197,12 +197,13 @@ class DHT11:
         return the_bytes[0] + the_bytes[1] + the_bytes[2] + the_bytes[3] & 255
 
 # initialize GPIO
-GPIO.setwarnings(False)
+print "aaa"
+#GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
-GPIO.cleanup()
 
-# read data using pin 14
-instance = DHT11(pin=25)
+# read data using pin 25
+pin=23
+instance = DHT11(pin)
 
 #probujemy max 10 razy
 attempt=0
@@ -211,7 +212,11 @@ result = instance.read()
 while ((not result.is_valid()) and (attempt<100)):
 	result=instance.read()
 	attempt=attempt+1;
-	if attempt==10: sys.exit()
+	if attempt==10:
+		wynik={'time': int(time.time()), 'datetime': datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"), 'error': "No contact with DHT11 on BCM pin="+str(pin), 'attempt': attempt}
+		print wynik
+		GPIO.cleanup()
+		sys.exit()
 
 if len(sys.argv)>1:
     if sys.argv[1]=='t':
@@ -221,4 +226,6 @@ if len(sys.argv)>1:
 else:
 	wynik={'time': int(time.time()), 'datetime': datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S"), 'temperature': result.temperature, 'humidity': result.humidity, 'attempt': attempt}
 
+print "eee"
 print wynik
+GPIO.cleanup()
