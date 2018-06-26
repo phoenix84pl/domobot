@@ -119,11 +119,15 @@ class TFT24T():
                 bledy+=1
             #if debug==1: print (str(tx)+"raw"+str(ty), proby, bledy)
         # average those
-        x = x / (proby-bledy)	#zwraca wynik w skali 0-4096, choc tak naprawde pomija spory % od krawedzi
-        y = y / (proby-bledy)	#zwraca wynik w skali 0-4096, choc tak naprawde pomija spory % od krawedzi
+        if proby>bledy:
+            x = x / (proby-bledy)	#zwraca wynik w skali 0-4096, choc tak naprawde pomija spory % od krawedzi
+            y = y / (proby-bledy)	#zwraca wynik w skali 0-4096, choc tak naprawde pomija spory % od krawedzi
 
-        x2=int(float(4096-x)/4096*ILI9341_TFTWIDTH)
-        y2=int(float(y)/4096*ILI9341_TFTHEIGHT)
+            x2=int(float(4096-x)/4096*ILI9341_TFTWIDTH)
+            y2=int(float(y)/4096*ILI9341_TFTHEIGHT)
+        else:
+			x2=0
+			y2=0
 
         #if debug==1: print (str(x2)+"ready"+str(y2))
 
@@ -325,12 +329,13 @@ class TFT24T():
 
     def draw(self):
         """Return a PIL ImageDraw instance for drawing on the image buffer."""
-        d = ImageDraw.Draw(Buffer)
+        d=ImageDraw.Draw(Buffer)
         # Add custom methods to the draw object:
-        d.textrotated = MethodType(_textrotated, d)
-        d.pasteimage = MethodType(_pasteimage, d)
-        d.textwrapped = MethodType(_textwrapped, d)
-        d.circle = MethodType(_ellipse, d)
+        d.textrotated=MethodType(_textrotated, d)
+        d.pasteimage=MethodType(_pasteimage, d)
+        d.textwrapped=MethodType(_textwrapped, d)
+        d.circle=MethodType(_ellipse, d)
+        d.rect=MethodType(_rectangle, d)
         return d
 
     def load_wallpaper(self, filename):
@@ -421,8 +426,8 @@ def _textrotated(self, position, text, angle, font, fill="white"):
     Buffer.paste(rotated, position, rotated)  # into the global Buffer
     #   example:  draw.textrotated(position, text, angle, font, fill)
 
-def _pasteimage(self, filename, position):
-    Buffer.paste(Image.open(filename), position)
+def _pasteimage(self, image, position):
+	Buffer.paste(image, position, image)	#ostatnim argumentem jest maska, wiec jesli chcemy przezroczystosc, to trzeba powtorzyc obrazek, bo za drugim razem jest maska
     # example: draw.pasteimage('bl.jpg', (30,80))
 
 def _textwrapped(self, position, text1, length, height, font, fill="white"):
@@ -433,9 +438,10 @@ def _textwrapped(self, position, text1, length, height, font, fill="white"):
         y += height
 
 def _ellipse(self, coordinates, fill=None):
-    #self.rectangle(((100, 100), (200, 200)))
-    print (coordinates, fill)
     self.ellipse(coordinates, fill=fill)
+
+def _rectangle(self, coordinates, fill=None):
+	self.rectangle((coordinates), fill)
 
     # example:  draw.textwrapped((2,0), "but a lot longer", 50, 18, myFont, "black")
 
