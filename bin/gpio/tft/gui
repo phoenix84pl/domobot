@@ -30,18 +30,17 @@ TFT.clear((0, 0, 0))
 menu=menu.menu(screen=TFT, screenResolution=(240, 320), tiles=(3, 4))
 menu.buttonAdd(size=[2, 2], background="aqua", img="img/door.png")
 menu.buttonAdd(size=[1, 1], background="dimgrey", img="img/bulb.png")
-menu.buttonAdd(size=[1, 1], background="deeppink", img="img/switch.png")
 menu.buttonAdd(size=[1, 1], background="yellow", img="img/sleep.png")
+menu.buttonAdd(size=[1, 1], background="lime", img="img/thermo.png")
+menu.buttonAdd(size=[2, 2], background="black", img="img/switch.png")
+menu.buttonAdd(size=[1, 1], background="deeppink")
 
 while 1:
 	menu.show()
 
-	if False:
-		image = Image.open('bl.jpg')
-		# Resize the image and rotate it so it's 240x320 pixels.
-		image = image.rotate(90,0,1).resize((240, 320))
-		# Draw the image on the display hardware.
-		print('Drawing image')
-		TFT.display(image)
+	if True:	#test dotyku
+		while not TFT.penDown():
+			pass
 
-	time.sleep(1)
+		menu.touch(TFT.penPosition())
+

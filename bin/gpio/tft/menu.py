@@ -3,6 +3,7 @@
 import PIL
 from PIL import Image
 import os.path
+import subprocess
 
 class menu():
 
@@ -70,22 +71,27 @@ class menu():
 			self._margin=(0, 0, margin, margin)
 			return y
 
+	def _touch2button(self, pos):
+			#zamienia pos na id buttona
+		for i0 in range(len(self._buttons)):
+			if self._buttons[i0]["position"][0]<=pos[0]<=self._buttons[i0]["position"][2] and self._buttons[i0]["position"][1]<=pos[1]<=self._buttons[i0]["position"][3]: return i0
+
 	def buttonAdd(self, size=[1, 1], title=None, img=None, background=None):
 			#dodanie buttona do listy
 
 		address=self._mapFind(size)
 		if address:
 			id=len(self._buttons)
-			size.append(size[0]*self._tileSize+(size[0]-1)*self._gap)	#szerokosc buttona w pikselach
-			size.append(size[1]*self._tileSize+(size[1]-1)*self._gap)	#wysokosc buttona w pikselach
+
+			dimensions=[size[0]*self._tileSize+(size[0]-1)*self._gap, size[1]*self._tileSize+(size[1]-1)*self._gap]	#wymiaty w px
 
 			position=[]
 			position.append(self._margin[2]+self._gap*(address[0]+1)+address[0]*self._tileSize)	#x gl
 			position.append(self._margin[0]+self._gap*(address[1]+1)+address[1]*self._tileSize)	#y gl
-			position.append(position[0]+size[2])														#x dp
-			position.append(position[1]+size[3])														#x dl
+			position.append(position[0]+dimensions[0])											#x dp
+			position.append(position[1]+dimensions[1])											#x dl
 
-			self._buttons.append({"size": size, "title": title, "img": img, "background": background, "address": address, "position": position})
+			self._buttons.append({"size": size, "dimensions": dimensions, "title": title, "img": img, "background": background, "address": address, "position": position})
 			self._mapLock(address, size, id)
 
 			#dodac sprawdzanie na mapie buttonow wolnego miejsca i jego blokade
@@ -113,11 +119,18 @@ class menu():
 				if self._buttons[i0]["img"]:
 					if os.path.isfile(self._buttons[i0]["img"]):
 						image=Image.open(self._buttons[i0]["img"])
-						image=image.resize((self._buttons[i0]["size"][2], self._buttons[i0]["size"][3]))
+						image=image.resize(self._buttons[i0]["dimensions"])
 						self._screen.draw().pasteimage(image, (self._buttons[i0]["position"][0], self._buttons[i0]["position"][1]))
-						print self._buttons[i0]
 
+			#maluj menu
 		self._screen.display()
+
+	def touch(self, pos):
+			#reaguje na dotyk
+		id=self._touch2button(pos)
+		if id!=None:	#bo moze byc 0
+				#jesli dotknieto ktoregos guzika
+			return_code=subprocess.call(('espeak -vpl "Siema"'), shell=True)
 
 class tile():
 	def __init__(self, size=(1, 1), background=None, picture=None, title=None):
