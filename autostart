@@ -58,7 +58,6 @@ sudo cp bin/gpio/lcd		/usr/bin
 sudo cp bin/pogoda			/usr/bin
 sudo cp bin/gpio/domofon	/usr/bin
 sudo cp bin/domobot			/usr/bin
-sudo cp bin/autogit			/usr/bin
 echo ""
 echo "→Umożliwienie korzystania z GPIO i i2c w rPi przez wszystkich (programy GPIO/i2c chodzą bez sudo). Komputery bez i2c i GPIO mogą wywalić ERROR, olej go."
 echo ""
